@@ -2,10 +2,10 @@ package com.springmongodb.workshopmongodb.services;
 
 import com.springmongodb.workshopmongodb.domain.User;
 import com.springmongodb.workshopmongodb.repositories.UserRepository;
+import com.springmongodb.workshopmongodb.services.exception.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -19,4 +19,9 @@ public class UserService {
         List<User> userList = userRepository.findAll();
         return userList;
     }
+
+    public User findById(String id){
+        return userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
+    }
+
 }
